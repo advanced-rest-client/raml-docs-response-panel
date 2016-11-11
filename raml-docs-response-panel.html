@@ -16,7 +16,9 @@ the License.
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-menu/paper-menu.html">
-<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../marked-element/marked-element.html">
+<link rel="import" href="../markdown-styles/markdown-styles.html">
+<link rel="import" href="../docs-parameters-table/docs-body-parameters-table.html">
 <!--
 `<raml-docs-response-panel>` Element that displays response documentation for RAML
 
@@ -38,6 +40,7 @@ Custom property | Description | Default
 -->
 <dom-module id="raml-docs-response-panel">
   <template>
+    <style include="markdown-styles"></style>
     <style>
      :host {
       display: block;
@@ -76,7 +79,7 @@ Custom property | Description | Default
       color: rgba(56, 142, 60, 1);
     }
 
-    .codes .green.iron-selected:not([focused]) {
+    .codes .green.iron-selected:not([focused])  {
       background-color: rgba(56, 142, 60, 0.12);
     }
 
@@ -84,7 +87,7 @@ Custom property | Description | Default
       color: rgba(48, 63, 159, 1);
     }
 
-    .codes .blue.iron-selected:not([focused]) {
+    .codes .blue.iron-selected:not([focused])  {
       background-color: rgba(48, 63, 159, 0.12);
     }
 
@@ -100,33 +103,41 @@ Custom property | Description | Default
       color: rgba(211, 47, 47, 1);
     }
 
-    .codes .red.iron-selected:not([focused]) {
+    .codes .red.iron-selected:not([focused])  {
       background-color: rgba(211, 47, 47, 0.12);
     }
+
+    .markdown-html,
+    docs-body-parameters-table {
+      margin-right: 12px;
+    }
+
     </style>
-    <div class="container">
+    <div class="container" hidden$="[[!hasResponses]]">
       <div class="codes">
-        <paper-menu selected="{{selectedResource}}">
+        <paper-menu selected="{{selectedResponseStatus}}" selected-attribute="active">
           <template is="dom-repeat" items="[[responses]]">
             <paper-item class$="[[_computeCodeClass(item.code)]]">[[item.code]]</paper-item>
           </template>
         </paper-menu>
       </div>
       <div class="docs">
-        <iron-pages selected="{{selectedResource}}">
-          <template is="dom-repeat" items="[[responses]]">
-            <section>
-              <p hidden$="[[!_hasProperty(item, 'description')]]">[[item.description]]</p>
-              <p class="no-data-info" hidden$="[[_hasProperty(item, 'description')]]">No description provided.</p>
-              <div hidden$="[[!_hasProperty(item, 'contentType')]]">
-                <span class="label">Content type</span>
-                <span class="label-value">[[item.contentType]]</span>
-              </div>
-              <raml-resource-body-viewer hidden$="[[!_hasProperty(item, 'body')]]" body="[[item.body]]"></raml-resource-body-viewer>
-              <docs-body-parameters-table hidden$="[[!_hasProperty(item, 'body')]]" type="[[item.body]]"></docs-body-parameters-table>
-            </section>
+        <section>
+          <template is="dom-if" if="[[_hasProperty(selectedResponse, 'description')]]">
+            <marked-element markdown="[[selectedResponse.description]]">
+              <div class="markdown-html"></div>
+            </marked-element>
           </template>
-        </iron-pages>
+          <p class="no-data-info" hidden$="[[_hasProperty(selectedResponse, 'description')]]">No description provided.</p>
+          <paper-dropdown-menu label="Content type" hidden$="[[!displayBodySelector]]" class="body-selector">
+            <paper-listbox class="dropdown-content" attr-for-selected="data-type" selected="{{selectedBodyType}}">
+              <template is="dom-repeat" items="[[bodyTypes]]">
+                <paper-item data-type$="[[item]]">[[item]]</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+          <docs-body-parameters-table hidden$="[[!_hasProperty(item, 'body')]]" type="[[selectedBody]]"></docs-body-parameters-table>
+        </section>
       </div>
     </div>
   </template>
@@ -134,27 +145,104 @@ Custom property | Description | Default
   Polymer({
     is: 'raml-docs-response-panel',
     properties: {
+      // List of responses - RAML definition (JSON)
       responses: Array,
+      // Computed value if currently panel has anything to display
       hasResponses: {
         type: Boolean,
-        notify: true
+        notify: true,
+        readOnly: true,
+        value: false
       },
-      selectedResource: {
+      // Selected response in the array (0-based)
+      selectedResponseStatus: {
         type: Number,
         value: 0
+      },
+      // Currently selected response object
+      selectedResponse: {
+        type: Object,
+        computed: '_computeSelectedResponse(selectedResponseStatus, responses.length)'
+      },
+      // Computed names of the body types that are used to the content type drop down
+      bodyTypes: Array,
+      // A name of the selected body type. E.g. "application/json".
+      selectedBodyType: String,
+      /**
+       * Computed value if the body selector can be shown.
+       * Body selector can be shown if there is more than one mody defined.
+       */
+      displayBodySelector: {
+        type: Boolean,
+        value: false,
+        readOnly: true
+      },
+      // Definition of the body for `selectedBodyType`
+      selectedBody: {
+        type: Object,
+        computed: '_computeSelectedBody(selectedBodyType, selectedResponseStatus)'
       }
     },
 
     observers: [
-      '_responsesChanged(responses.*)'
+      '_responsesChanged(responses.*)',
+      '_bodyTypesChanged(bodyTypes.length)'
     ],
 
     _responsesChanged: function() {
-      this.selectedResource = 0;
+      this.selectedResponseStatus = 0;
+      this.clear();
 
       var d = this.responses;
-      var has = d && !!d.length;
-      this.hasResponses = has;
+      this._setHasResponses(!!(d && d.length));
+      if (!this.hasResponses) {
+        return;
+      }
+      this._computeBodyTypes();
+    },
+
+    clear: function() {
+      this.selectedBodyType = undefined;
+      this.bodyTypes = [];
+    },
+
+    _computeBodyTypes: function() {
+      var i = this.selectedResponseStatus;
+      if (!i && i !== 0) {
+        return;
+      }
+      var body = this.responses[i].body;
+      if (!body) {
+        return;
+      }
+
+      this.bodyTypes = Object.getOwnPropertyNames(body);
+    },
+
+    _bodyTypesChanged: function(size) {
+      this._setDisplayBodySelector(!!(size && size > 1));
+      if (!this.displayBodySelector && size === 1) {
+        this.selectedBodyType = this.bodyTypes[0];
+      }
+    },
+
+    _computeSelectedResponse: function(selectedResponseStatus, respSize) {
+      if (!selectedResponseStatus && selectedResponseStatus !== 0 || !respSize) {
+        return;
+      }
+      return this.responses[selectedResponseStatus];
+    },
+
+    _computeSelectedBody: function(selectedBodyType, selectedResponseStatus) {
+      if (!selectedBodyType || (!selectedResponseStatus && selectedResponseStatus !== 0)) {
+        return undefined;
+      }
+      var body = this.responses[selectedResponseStatus].body;
+      // Body can be not set.
+      if (!body) {
+        return undefined;
+      }
+      return body[selectedBodyType];
     },
 
     _hasProperty: function(obj, property) {
