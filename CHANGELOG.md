@@ -1,3 +1,13 @@
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.0.1...v1.0.2) (2016-12-06)
+
+
+### Update
+
+* Updated element to work with new parser and data structure. Updated CI integration ([92af3fef45446117c288e095e5e4c42ad0e3dbbc](https://github.com/advanced-rest-client/raml-docs-response-panel/commit/92af3fef45446117c288e095e5e4c42ad0e3dbbc))
+
+
+
 <a name="1.0.1"></a>
 ## 1.0.1 (2016-11-12)
 

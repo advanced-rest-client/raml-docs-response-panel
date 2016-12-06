@@ -31,7 +31,8 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
     "test-fixture": "PolymerElements/test-fixture#^1.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+    "arc-demo-helpers": "advanced-rest-client/arc-demo-helpers#^1.0.4"
   },
   "ignore": [
     "**/.*",
@@ -41,5 +42,5 @@
     "test",
     "tasks"
   ],
-  "version": "1.0.1"
+  "version": "1.0.2"
 }
