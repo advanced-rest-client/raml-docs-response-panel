@@ -1,3 +1,13 @@
+<a name="1.0.4"></a>
+## [1.0.4](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.0.3...v1.0.4) (2016-12-08)
+
+
+### Update
+
+* Updated element to work with the new data model from the RAML parser ([ddaf7b84579f6b4cfa516200842319d80261dca2](https://github.com/advanced-rest-client/raml-docs-response-panel/commit/ddaf7b84579f6b4cfa516200842319d80261dca2))
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.0.2...v1.0.3) (2016-12-08)
 
