@@ -39,7 +39,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <raml-demo-page selected-object="{{selected}}" is-method="{{isMethod}}">
         <h1>The raml-docs-response-panel element</h1>
         <div main>
-          <template is="dom-if" if="[[isMethod]]" restamp="true">
+          <template is="dom-if" if="[[isMethod]]">
             <raml-docs-response-panel has-responses="{{hasResponses}}" responses="[[selected.responses]]"></raml-docs-response-panel>
             <p hidden$="[[hasResponses]]">Selected method does not have the <b>responses</b> property.</p>
           </template>
