@@ -39,4 +39,6 @@ Custom property | Description | Default
 `--raml-docs-response-code-bgcolor-300` | Background color of the 200 status code | `rgba(48, 63, 159, 0.12)` |
 `--raml-docs-response-code-bgcolor-400` | Background color of the 200 status code | `rgba(211, 47, 47, 1)` |
 `--raml-docs-response-code-bgcolor-500` | Background color of the 200 status code | `rgba(211, 47, 47, 0.12)` |
+`raml-docs-response-panel-codes-border-color` | Border color of the response codes column | `rgba(0, 161, 223, 0.24)`
+`--no-info-message` | A mixin applied to the "missing type" paragraph. | `{}` |
 
