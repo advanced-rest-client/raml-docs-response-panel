@@ -1,3 +1,13 @@
+<a name="1.0.8"></a>
+## [1.0.8](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.0.7...v1.0.8) (2016-12-19)
+
+
+### Fix
+
+* Fixed variables and mixin names issues ([32bf617ad36bc51e1ec8075c8112fa7a2b477a6b](https://github.com/advanced-rest-client/raml-docs-response-panel/commit/32bf617ad36bc51e1ec8075c8112fa7a2b477a6b))
+
+
+
 <a name="1.0.7"></a>
 ## [1.0.7](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.0.6...v1.0.7) (2016-12-10)
 
