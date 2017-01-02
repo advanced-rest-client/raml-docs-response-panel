@@ -1,3 +1,13 @@
+<a name="1.0.9"></a>
+## [1.0.9](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.0.8...v1.0.9) (2017-01-02)
+
+
+### Docs
+
+* Updated docs about the styling, fixed description, updated mixins and variables names ([1f1ad668fd6aa3f8c6f3cfdea0c0edf08d36a839](https://github.com/advanced-rest-client/raml-docs-response-panel/commit/1f1ad668fd6aa3f8c6f3cfdea0c0edf08d36a839))
+
+
+
 <a name="1.0.8"></a>
 ## [1.0.8](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.0.7...v1.0.8) (2016-12-19)
 

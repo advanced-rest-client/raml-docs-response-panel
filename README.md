@@ -31,14 +31,14 @@ and it will be respected.
 Custom property | Description | Default
 ----------------|-------------|----------
 `--raml-docs-response-panel` | Mixin applied to the element | `{}`
-`--raml-docs-response-code-color-200` | Color of the 200 status code | `rgba(56, 142, 60, 1)` |
-`--raml-docs-response-code-color-300` | Color of the 200 status code | `rgba(56, 142, 60, 0.12)` |
-`--raml-docs-response-code-color-400` | Color of the 200 status code | `rgba(48, 63, 159, 1)` |
-`--raml-docs-response-code-color-500` | Color of the 200 status code | `rgba(48, 63, 159, 0.12)` |
-`--raml-docs-response-code-bgcolor-200` | Background color of the 200 status code | `rgba(48, 63, 159, 1)` |
-`--raml-docs-response-code-bgcolor-300` | Background color of the 200 status code | `rgba(48, 63, 159, 0.12)` |
-`--raml-docs-response-code-bgcolor-400` | Background color of the 200 status code | `rgba(211, 47, 47, 1)` |
-`--raml-docs-response-code-bgcolor-500` | Background color of the 200 status code | `rgba(211, 47, 47, 0.12)` |
+`--arc-status-code-color-200` | Color of the 200 status code (ARC theme option) | `rgba(56, 142, 60, 1)` |
+`--arc-status-code-color-300` | Color of the 300 status code (ARC theme option) | `rgba(48, 63, 159, 1)` |
+`--arc-status-code-color-400` | Color of the 400 status code (ARC theme option) | `rgba(245, 124, 0, 1)` |
+`--arc-status-code-color-500` | Color of the 500 status code (ARC theme option) | `rgba(211, 47, 47, 1)` |
+`--arc-status-code-bgcolor-200` | Background color of the 200 status code | `rgba(56, 142, 60, 0.12)` |
+`--arc-status-code-bgcolor-300` | Background color of the 300 status code | `rgba(48, 63, 159, 0.12)` |
+`--arc-status-code-bgcolor-400` | Background color of the 400 status code | `rgba(245, 124, 0, 0.12)` |
+`--arc-status-code-bgcolor-500` | Background color of the 500 status code | `rgba(211, 47, 47, 0.12)` |
 `--raml-docs-response-panel-codes-border-color` | Border color of the response codes column | `rgba(0, 161, 223, 0.24)`
 `--no-info-message` | A mixin applied to the "missing type" paragraph. | `{}` |
 `--raml-docs-response-panel-container` | A mixin applied to the element's main container | `{}`
