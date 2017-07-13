@@ -1,5 +1,4 @@
 language: node_js
-sudo: required
 dist: trusty
 node_js: stable
 before_script:
@@ -8,12 +7,8 @@ before_script:
 addons:
   sauce_connect: false
 script:
-- ./node_modules/.bin/polymer lint raml-docs-response-panel.html
-# - node_modules/.bin/polymer test --plugin sauce --job-name "raml-docs-response-panel:${TRAVIS_BRANCH}" --build-number=${TRAVIS_BUILD_NUMBER}
-cache:
-  directories:
-  - bower_components
-  - node_modules
+- npm run lint
+- node_modules/.bin/polymer test --plugin sauce --job-name "raml-docs-response-panel:${TRAVIS_BRANCH}" --build-number=${TRAVIS_BUILD_NUMBER}
 branches:
   only:
   - stage
