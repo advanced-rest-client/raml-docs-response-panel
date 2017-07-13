@@ -1,0 +1,98 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../../raml-js-parser/raml-js-parser.html">
+    <link rel="import" href="../../raml-json-enhance/raml-json-enhance.html">
+    <link rel="import" href="../raml-docs-response-panel.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <raml-docs-response-panel></raml-docs-response-panel>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="parser">
+      <template>
+        <raml-js-parser json></raml-js-parser>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="enhancer">
+      <template>
+        <raml-json-enhance></raml-json-enhance>
+      </template>
+    </test-fixture>
+
+    <script>
+    /* global fixture, assert */
+    suite('basic', function() {
+      var raml;
+      var element;
+
+      suiteSetup(function(done) {
+        this.timeout(120000);
+        var baseUrl = location.href.substr(0, location.href.lastIndexOf('/') + 1);
+        var parser = fixture('parser');
+        var enhancer = fixture('enhancer');
+        enhancer.addEventListener('raml-json-enhance-ready', function(e) {
+          raml = e.detail.json;
+          done();
+        });
+        parser.loadApi(baseUrl + 'test.raml')
+        .then(function(data) {
+          enhancer.json = data.json.specification;
+        })
+        .catch(function(e) {
+          done(new Error('Parser error: ' + (e.message || 'Some error happened...')));
+        });
+      });
+
+      setup(function() {
+        element = fixture('basic');
+        element.responses = raml.resources[0].methods[0].responses;
+      });
+
+      test('Computes hasResponses', function() {
+        assert.isTrue(element.hasResponses);
+      });
+
+      test('Computes hasProperties', function() {
+        assert.isTrue(element.hasProperties);
+      });
+
+      test('Computes hasProperties with description only', function() {
+        element.responses = raml.resources[0].methods[1].responses;
+        assert.isTrue(element.hasProperties);
+      });
+
+      test('Computes hasProperties without properties', function() {
+        element.responses = raml.resources[0].methods[2].responses;
+        assert.isFalse(element.hasProperties);
+      });
+
+      test('Computes selected', function() {
+        assert.equal(element.selected, 0);
+      });
+    });
+    </script>
+
+  </body>
+</html>
