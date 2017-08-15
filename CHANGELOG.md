@@ -1,3 +1,18 @@
+<a name="1.1.11"></a>
+## [1.1.11](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.1.10...1.1.11) (2017-08-15)
+
+
+### New
+
+* Adding package lock file ([7264cd72170d97ee7eec51702cea7d8bc8ff9be5](https://github.com/advanced-rest-client/raml-docs-response-panel/commit/7264cd72170d97ee7eec51702cea7d8bc8ff9be5))
+
+### Update
+
+* Updated dependency version ([6a09b1ed21a40c477b406ed1c9135a06782d14f8](https://github.com/advanced-rest-client/raml-docs-response-panel/commit/6a09b1ed21a40c477b406ed1c9135a06782d14f8))
+* Updated tests configuration and package metadata ([27c93bb9bb7bd660b6558a7d4dc43a74266dc84a](https://github.com/advanced-rest-client/raml-docs-response-panel/commit/27c93bb9bb7bd660b6558a7d4dc43a74266dc84a))
+
+
+
 <a name="1.1.10"></a>
 ## [1.1.10](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.0.9...v1.1.10) (2017-07-13)
 
