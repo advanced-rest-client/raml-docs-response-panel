@@ -1,3 +1,13 @@
+<a name="1.1.13"></a>
+## [1.1.13](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.1.11...1.1.13) (2017-12-14)
+
+
+### Update
+
+* Updated version of the enhancer. ([a07a75636cd54ee6e2aeb1fd92a14e420d468dfe](https://github.com/advanced-rest-client/raml-docs-response-panel/commit/a07a75636cd54ee6e2aeb1fd92a14e420d468dfe))
+
+
+
 <a name="1.1.12"></a>
 ## [1.1.12](https://github.com/advanced-rest-client/raml-docs-response-panel/compare/1.1.11...1.1.12) (2017-08-15)
 
